@@ -1,20 +1,22 @@
 
 import {productDAO} from '../dao/index.js';
 
-// Dữ liệu giả lập được trả về từ DB
-const products = [
-    {'id': 1, 'name': 'Product 1', 'price': 2000},
-    {'id': 2, 'name': 'Product 2', 'price': 1500},
-    {'id': 3, 'name': 'Product 3', 'price': 3000}
-];
 
 // GET: /products
 const getAllProducts = async (req, res) => {
     try{
-        res.status(200).json({
-            "message": "Load data success",
-            "data": products
+        res.status(200).json(await productDAO.getAllProducts());
+    }catch(error){
+        res.status(500).json({
+            message: error.toString()
         });
+    }
+};
+
+// GET: /products/:id
+const getProductById = async (req, res) => {
+    try{
+        res.status(200).json(await productDAO.getProductById(req.params.id));
     }catch(error){
         res.status(500).json({
             message: error.toString()
@@ -44,5 +46,6 @@ const createProduct = async (req, res) => {
 
 export default{
     getAllProducts,
-    createProduct
+    createProduct,
+    getProductById
 }

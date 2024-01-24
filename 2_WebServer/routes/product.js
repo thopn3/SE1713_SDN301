@@ -7,9 +7,7 @@ const productRouter = express.Router();
 productRouter.get('/', productController.getAllProducts);
 
 // GET: Fetch Product by Id
-productRouter.get("/:id", async (req, res) => {
-    res.send(`Product detail by Id: ${req.params.id}`);
-});
+productRouter.get("/:id", productController.getProductById);
 
 // POST: Create a new Product
 productRouter.post('/', productController.createProduct);
